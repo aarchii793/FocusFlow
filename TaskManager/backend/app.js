@@ -26,9 +26,9 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRouter);
 app.use("/api/task", taskRouter);
-app.get("/", (req, res) => {
-  res.send("Task Manager Backend is Running");
-});
+// app.get("/", (req, res) => {
+//   res.send("Task Manager Backend is Running");
+// });
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
