@@ -5,6 +5,9 @@ import authRouter from "./routes/authRoutes.js";
 import taskRouter from "./routes/taskRoutes.js";
 import connectDB from "./config/database.js";
 
+import path from "path";
+const __dirname = path.resolve();
+
 dotenv.config();
 connectDB();
 
@@ -27,6 +30,16 @@ app.get("/", (req, res) => {
   res.send("Task Manager Backend is Running");
 });
 
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+  app.get(/.*/, (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
+}
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
+
